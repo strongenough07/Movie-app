@@ -27,7 +27,7 @@
             md:text-6xl
           "
         >
-          Now Streamaing
+          Now Streaming
         </h1>
         <button
           class="
