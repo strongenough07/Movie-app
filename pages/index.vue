@@ -1,26 +1,67 @@
 <template>
   <div class="home">
     <Hero />
-    <div class="flex ml-44  mt-5 space-x-2">
-      
-      <input @keyup.enter="$fetch" class="px-3 py-3 placeholder-redGray-300 text-redGray-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring h-9 " type="text" placeholder="Search" v-model.lazy="searchInput">
-      <button @click="clearSearch" v-show="searchInput !== ''" class="px-3 py-1 rounded overflow-hidden focus:outline-none focus:shadow-outline bg-red-400 text-white text-sm lg:text-base">Clear Search</button>
+    <div class="flex mx-auto ml-4 mt-8 space-x-2">
+      <input
+        @keyup.enter="$fetch"
+        class="
+          px-3
+          py-3
+          placeholder-redGray-300
+          text-redGray-600
+          relative
+          bg-white bg-white
+          rounded
+          text-sm
+          border-0
+          shadow
+          outline-none
+          focus:outline-none
+          focus:ring
+          h-9
+        "
+        type="text"
+        placeholder="Search"
+        v-model.lazy="searchInput"
+      />
+      <button
+        @click="clearSearch"
+        v-show="searchInput !== ''"
+        class="
+          px-3
+          py-1
+          rounded
+          overflow-hidden
+          focus:outline-none
+          focus:shadow-outline
+          bg-red-400
+          text-white text-sm
+          lg:text-base
+        "
+      >
+        Clear Search
+      </button>
     </div>
     <Loading v-if="$fetchState.pending" />
     <div v-else class="container movies">
       <div v-if="searchInput !== ''" id="movie-grid" class="movies-grid">
-        <div class="movie" v-for="(movie, index) in searchedMovies" :key="index">
+        <div
+          class="movie"
+          v-for="(movie, index) in searchedMovies"
+          :key="index"
+        >
           <div class="movie-img">
-            <img :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`" alt="">
-            <p class="review">{{movie.vote_average}}</p>
-            <p class="overview">{{movie.overview }}</p>
+            <img
+              :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
+              alt=""
+            />
+            <p class="review">{{ movie.vote_average }}</p>
+            <p class="overview">{{ movie.overview }}</p>
           </div>
           <div class="info">
             <p class="title">
-              {{movie.title.slice(0, 25)}}
-              <span v-if="movie.title.length > 25">
-                ...
-              </span>
+              {{ movie.title.slice(0, 25) }}
+              <span v-if="movie.title.length > 25"> ... </span>
             </p>
             <p class="release">
               Released:
@@ -28,34 +69,46 @@
                 new Date(movie.release_date).toLocaleString('en-us', {
                   mounth: 'long',
                   day: 'numeric',
-                  year: 'numeric'
+                  year: 'numeric',
                 })
               }}
             </p>
-           <div class="mt-5">
-            <NuxtLink
-              class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
-              :to="{ name: 'movies-movieid', params: { movieid: movie.id } }"
-            >
-              Get More Info
-            </NuxtLink>
-           </div>
+            <div class="mt-5">
+              <NuxtLink
+                class="
+                  bg-transparent
+                  hover:bg-red-500
+                  text-red-700
+                  font-semibold
+                  hover:text-white
+                  py-2
+                  px-4
+                  border border-red-500
+                  hover:border-transparent
+                  rounded
+                "
+                :to="{ name: 'movies-movieid', params: { movieid: movie.id } }"
+              >
+                Get More Info
+              </NuxtLink>
+            </div>
           </div>
         </div>
       </div>
       <div v-else id="movie-grid" class="movies-grid">
         <div class="movie" v-for="(movie, index) in movies" :key="index">
           <div class="movie-img">
-            <img :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`" alt="">
-            <p class="review">{{movie.vote_average}}</p>
-            <p class="overview">{{movie.overview }}</p>
+            <img
+              :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
+              alt=""
+            />
+            <p class="review">{{ movie.vote_average }}</p>
+            <p class="overview">{{ movie.overview }}</p>
           </div>
           <div class="info">
             <p class="title">
-              {{movie.title.slice(0, 25)}}
-              <span v-if="movie.title.length > 25">
-                ...
-              </span>
+              {{ movie.title.slice(0, 25) }}
+              <span v-if="movie.title.length > 25"> ... </span>
             </p>
             <p class="release">
               Released:
@@ -63,28 +116,38 @@
                 new Date(movie.release_date).toLocaleString('en-us', {
                   mounth: 'long',
                   day: 'numeric',
-                  year: 'numeric'
+                  year: 'numeric',
                 })
               }}
             </p>
-           <div class="mt-5">
-            <NuxtLink
-              class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
-              :to="{ name: 'movies-movieid', params: { movieid: movie.id } }"
-            >
-              Get More Info
-            </NuxtLink>
-           </div>
+            <div class="mt-5">
+              <NuxtLink
+                class="
+                  bg-transparent
+                  hover:bg-red-500
+                  text-red-700
+                  font-semibold
+                  hover:text-white
+                  py-2
+                  px-4
+                  border border-red-500
+                  hover:border-transparent
+                  rounded
+                "
+                :to="{ name: 'movies-movieid', params: { movieid: movie.id } }"
+              >
+                Get More Info
+              </NuxtLink>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
- 
 </template>
 
 <script>
-import axios from "axios"
+import axios from 'axios'
 import Loading from '~/components/Loading.vue'
 export default {
   components: { Loading },
@@ -92,7 +155,7 @@ export default {
     return {
       movies: [],
       searchedMovies: [],
-      searchInput: ''
+      searchInput: '',
     }
   },
   async fetch() {
@@ -100,18 +163,18 @@ export default {
       await this.getMovies()
       return
     }
- 
-      await this.searchMovies()
-   
+
+    await this.searchMovies()
   },
   methods: {
     async getMovies() {
-      const data = axios.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=ef8e564871e2670bf18156e3c9186160&language=en-US&page=1`)
+      const data = axios.get(
+        `https://api.themoviedb.org/3/movie/now_playing?api_key=ef8e564871e2670bf18156e3c9186160&language=en-US&page=1`
+      )
       const result = await data
       result.data.results.forEach((movie) => {
         this.movies.push(movie)
       })
-      
     },
     async searchMovies() {
       const data = axios.get(
@@ -123,11 +186,9 @@ export default {
       })
     },
     clearSearch() {
-      this.searchInput = '',
-      this.searchedMovies = []
-
-    }
-  }
+      ;(this.searchInput = ''), (this.searchedMovies = [])
+    },
+  },
 }
 </script>
 <style lang="scss">
